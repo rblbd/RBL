@@ -1,0 +1,171 @@
+wsl --install
+
+To install the WSL application from the Microsoft Store, open it and search for Windows subsystem.
+
+wsl --list --online to see all available distros.
+
+wsl --install -d Ubuntu-20.04
+
+Use wsl -l -v to see all your currently installed distros and which version of WSL they are using:
+
+sudo apt update
+Then
+
+sudo apt full-upgrade
+
+Press Y when prompted.
+
+sudo apt update
+
+Then, start with some basic X11 applications:
+
+sudo apt install x11-apps
+
+To run the xeyes, a “follow the mouse” application, type:
+
+xeyes &
+
+xcalc
+
+sudo apt install octave
+
+Then start the application:
+
+octave --gui &
+
+sudo apt-get install ubuntu-desktop xrdp stacer -y
+1. sudo apt update && sudo apt upgrade -y
+2. sudo apt-get install ubuntu-desktop xrdp stacer -y
+3. sudo cp /etc/iptables/rules.v4 /etc/iptables/rules.v4.bak && sudo truncate -s 0 /etc/iptables/rules.v4
+4. sudo rm /usr/share/polkit-1/actions/org.freedesktop.color.policy
+5. sudo passwd ubuntu      Example password : t6y1x9n6h7j1  so long,complex and not in a dictionary
+
+then
+
+sudo reboot
+
+ubuntu@instance-ubuntu:~$ history
+    1  sudo apt update
+    2  sudo apt list --upgradable
+    3  whoami
+    4  df -h
+    5  free
+    6  hostname
+    7  sudo apt-get update
+    8  reboot
+    9  sudo reboot
+   10  sudo apt full-upgrade
+   11  sudo do-release-upgrade
+   12  sudo reboot
+   13  clear
+   14  apt install unattended-upgrades
+   15  sudo apt install unattended-upgrades
+   16  adduser sunny
+   17  sudo adduser sunny
+   18  sudo usermod -aG sudo sunny
+   19  sudo ss -tupln
+   20  Install UFW
+   21  sudo Install UFW
+   22  sudo apt-get install UFW
+   23  sudo apt install ufw
+   24  sudo ufw status
+   25  sudo ufw allow 22
+   26  Reload Firewall
+   27  sudo Reload Firewall
+   28  sudo ufw reload
+   29  sudo nano /etc/ssh/sshd_config
+   30  su sunny
+   31  mkdir ~/.ssh && chmod 700 ~/.ssh
+   32  su sunny
+   33  cd ~/.ssh
+   34  ls
+   35  su sunny
+   36  ls
+   37  cd /home/sunny/.ssh/
+   38  sudo cd /home/sunny/.ssh/
+   39  su sunny
+   40  clear
+   41  sudo apt-get install vim
+   42  sudo apt-get install nmon
+   43  nmon
+   44  sudo apt install apache2
+   45  sudo ufw app list
+   46  sudo ufw allow 'Apache'
+   47  sudo ufw status
+   48  sudo ufw start
+   49  sudo ufw restart
+   50  sudo systemctl status apache2
+   51  hostname -I
+   52  curl -4 icanhazip.com
+   53  152.67.4.82
+   54  sudo systemctl stop apache2
+   55  sudo systemctl start apache2
+   56  sudo systemctl restart apache2
+   57  sudo systemctl reload apache2
+   58  sudo mkdir /var/www/sunny.net.bd
+   59  sudo chown -R $USER:$USER /var/www/wunny.net.bd
+   60  sudo mkdir /var/www/sunny
+   61  sudo chown -R $USER:$USER /var/www/sunny
+   62  sudo chown -R $USER:$USER /var/www/sunny.net.bd
+   63  sudo chmod -R 755 /var/www/sunny
+   64  sudo chmod -R 755 /var/www/sunny.net.bd
+   65  sudo nano /var/www/sunny/index.html
+   66  sudo nano /etc/apache2/sites-available/sunny.conf
+   67  sudo nano /var/www/sunny.net.bd/index.html
+   68  sudo nano /etc/apache2/sites-available/sunny.net.bd.conf
+   69  sudo a2ensite sunny.conf
+   70  sudo a2ensite sunny.net.bd.conf
+   71  sudo a2dissite 000-default.conf
+   72  sudo apache2ctl configtest
+   73  sudo systemctl restart apache2
+   74  reboot
+   75  sudo reboot
+   76  152.67.4.82152.67.4.82
+   77  ping sunny.net.bd
+   78  sudo apt-get install ubuntu-desktop xrdp stacer -y
+   79  reboot
+   80  sudo reboot
+   81  sudo cp /etc/iptables/rules.v4 /etc/iptables/rules.v4.bak && sudo truncate -s 0 /etc/iptables/rules.v4
+   82  sudo rm /usr/share/polkit-1/actions/org.freedesktop.color.policy
+   83  history
+   84  sudo ufw allow 3389
+   85  sudo ufw allow 80
+   86  sudo ufw allow 8080
+   87  sudo ufw start
+   88  sudo ufw status
+   89  sudo ufw restart
+   90  sudo ufw enable
+   91  sudo ufw reload
+   92  sudo ufw allow icmp
+   93  -A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT
+   94  history
+   95  ping sunny.net.bd
+   96  ping about.sunny.net.bd
+   97  152.67.4.82152.67.4.82
+   98  clear
+   99  history
+
+
+===================
+
+root@ubuntu-arm-xrdp:~# history
+    1  apt update -y
+    2  adduser netsec
+    3  apt install ubuntu-desktop -y && apt install xrdp -y
+    4  systemctl status xrdp
+    5  netstat -nat | grep 3389
+    6  apt install net-tools
+    7  netstat -nat | grep 3389
+    8  nano /etc/xrdp/xrdp.ini
+    9  systemctl restart xrdp
+   10  netstat -nat | grep 3389
+   11  telnet localhost 3389
+   12  iptables -list
+   13  iptables --L
+   14  clear
+   15  iptables -L
+   16  iptables -F
+   17  iptables -L
+   18  netfilter-persistent save
+   19  history
+root@ubuntu-arm-xrdp
