@@ -1,0 +1,190 @@
+
+BASIC RHEL 7 Initial Setup
+===============================
+yum check-update
+yum update
+yum clean all
+yum install nano wget curl net-tools lsof bash-completion
+
+Network
+========
+nmtui
+nmtui-hostname
+nmtui-connect
+
+vi etc/hosts
+192.168.0.18    box1.rbl.dc    box1
+192.168.0.20    box2.rbl.dc    box2
+
+ifconfig enp0s3
+ip a
+ping -c2 google.com
+ethtool enp0s3
+mii-tool enp0s3
+
+USER
+============
+adduser rbl_user
+passwd rbl_user
+chage -d0 rbl_user
+usermod -aG wheel rbl_user
+su - rbl_user
+sudo yum update
+
+Configure SSH Public Key Authentication on RHEL 7
+su - rbl_user
+ssh-keygen -t RSA (add passphrase)
+ssh-copy-id user2@192.168.1.194
+ssh user2@192.168.1.194
+cat ~/.ssh/id_rsa
+
+Secure SSH
+==============
+sudo vi /etc/ssh/sshd_config
+PermitRootLogin no
+sudo systemctl restart sshd
+su -c 'echo "TMOUT=300" >> /etc/bashrc'
+tail /etc/bashrc
+
+Configure Firewall (Firewalld)
+==============================
+sudo systemctl status firewalld
+sudo systemctl start firewalld
+sudo systemctl enable firewalld
+
+sudo firewall-cmd --add-service=ssh --permanent
+sudo firewall-cmd --reload
+sudo firewall-cmd --add-service=sshd (For Temp)
+
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --permanent --add-service=smtp
+
+sudo firewall-cmd --permanent --list-all
+
+
+Remove Unneeded Services
+=========================
+sudo ss -tulpn
+sudo systemctl stop postfix.service 
+sudo yum remove postfix
+
+NTP
+=============
+sudo hwclock
+sudo hwclock --set --date="09/09/2015 12:33:00"
+uptime
+:r /etc/passwd (Insert existing file)
+
+sudo systemctl stop chronyd.service 
+sudo yum remove chrony
+sudo ss -tulpn
+sudo yum install ntpdate
+sudo ntpdate 0.asia.pool.ntp.org
+sudo crontab -e
+	@daily /usr/sbin/ntpdate 0.asia.pool.ntp.org
+
+
+Server Hardening Security
+====xxxxxxxxxxxxxxxx=======
+/(root) 
+/boot  
+/home  
+/tmp 
+/var 
+
+yum update
+rpm -qa
+yum list installed >> installed.txt
+yum remove package_name
+
+ss -tulpn
+systemctl list-units -t service
+yum remove postfix
+
+VNC console via SSH
+====================
+ssh -L 5902:localhost:5901 remote_machine
+vncviewer localhost:5902
+
+nmap -sT -O 192.168.1.10
+
+yum install firewalld
+systemctl start firewalld.service
+systemctl enable firewalld.service
+firewall-cmd --list-all
+
+getenforce
+setenforce 1
+sestatus
+
+find / -nouser -o -nogroup -exec ls -l {} \;
+
+pwmake 128
+vim /etc/pam.d/passwd (Apply Strong Password Policy)
+password required pam_pwquality.so retry=3 
+chage -M 45 username
+chage -d 0 username
+# passwd -l username 
+# usermod -L username
+To unlock accounts use the -u option for passwd command and -U option for usermod.
+tcpdump -i eno16777736 -w tcpdump.pcap
+
+# usermod -s /bin/false username
+
+# useradd -s /usr/sbin/nologin username
+
+
+BANNER
+=============
+
+sudo vim /etc/sshbanner.txt
+
+ .----------------.  .----------------.  .----------------. 
+| .--------------. || .--------------. || .--------------. |
+| |  _______     | || |   ______     | || |   _____      | |
+| | |_   __ \    | || |  |_   _ \    | || |  |_   _|     | |
+| |   | |__) |   | || |    | |_) |   | || |    | |       | |
+| |   |  __ /    | || |    |  __'.   | || |    | |   _   | |
+| |  _| |  \ \_  | || |   _| |__) |  | || |   _| |__/ |  | |
+| | |____| |___| | || |  |_______/   | || |  |________|  | |
+| |              | || |              | || |              | |
+| '--------------' || '--------------' || '--------------' |
+ '----------------'  '----------------'  '----------------' 
+
+sudo vim /etc/ssh/sshd_config
+	banner=/etc/sshbanner.txt
+sudo systemctl restart sshd
+
+sudo vim /etc/motd
+                                              
+sudo systemctl restart sshd
+
+#################################################################
+#                   _    _           _   _                      #
+#                  / \  | | ___ _ __| |_| |                     #
+#                 / _ \ | |/ _ \ '__| __| |                     #
+#                / ___ \| |  __/ |  | |_|_|                     #
+#               /_/   \_\_|\___|_|   \__(_)                     #
+#                                                               #
+#  You are entering into a secured area! Your IP, Login Time,   #
+#   Username has been noted and has been sent to the server     #
+#                       administrator!                          #
+#   This service is restricted to authorized users only. All    #
+#            activities on this system are logged.              #
+#  Unauthorized access will be fully investigated and reported  #
+#        to the appropriate law enforcement agencies.           #
+#################################################################
+
+/etc/issue.net
+
+/etc/motd
+
+ALERT! You are entering a secured area! Your IP, Login Time, and Username have been noted and have been sent to the server administrator!
+This service is restricted to authorized users only. All activities on this system are logged.
+Unauthorized access will be fully investigated and reported to the appropriate law enforcement agencies.
+
+open the /etc/ssh/sshd_config configuration file.
+Banner /etc/issue.net
+
+sudo systemctl restart sshd
