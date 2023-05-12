@@ -1,0 +1,63 @@
+ALPINE LINUX command
+================
+
+setup-alpine
+setup-hostname alpine
+rc-service hostname restart or /etc/init.d/hostname restart
+
+setup-interfaces
+setup-interfaces -a for dhcp
+
+Static IP
+/etc/network/interfaces and /etc/resolv.conf
+
+/etc/network/interfaces file should look like so:
+
+
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+    address 192.168.0.147
+    netmask 255.255.255.0
+    gateway 192.168.0.1
+
+
+setup-dns
+/etc/resolv.conf
+
+
+nameserver 1.1.1.1
+nameserver 8.8.8.8
+
+rc-service networking start
+If desired, you can also set it to load during boot, using rc-update add networking boot
+
+SSH
+setup-sshd utility 
+rc-service openssh start and rc-update add openssh
+
+setup-ntp
+rc-service name start and rc-update add name respectively.
+
+setup-disk
+setup-disk -m sys (auto)
+
+apk add vim
+apk update
+
+apk update && apk upgrade
+
+Firewall----
+## Install both IPv4 and IPv6 version of IPtables ##
+apk add ip6tables iptables
+
+## Install awall ##
+apk add -u awall
+
+## Verify it ##
+apk version awall
+
+https://www.cyberciti.biz/faq/how-to-set-up-a-firewall-with-awall-on-alpine-linux/
